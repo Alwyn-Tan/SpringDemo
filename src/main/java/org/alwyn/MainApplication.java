@@ -1,5 +1,6 @@
 package org.alwyn;
 
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
@@ -16,9 +17,13 @@ public class MainApplication {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(MainApplication.class, args);
 
         ConfigurableListableBeanFactory beanFactory = applicationContext.getBeanFactory();
-        Field singletonObjects = DefaultSingletonBeanRegistry.class.getDeclaredField("singletonObjects");
-        singletonObjects.setAccessible(true);
-        Map<String, Object> map = (Map<String, Object>) singletonObjects.get(beanFactory);
-        map.keySet().forEach(System.out::println);
+//        Field singletonObjects = DefaultSingletonBeanRegistry.class.getDeclaredField("singletonObjects");
+//        singletonObjects.setAccessible(true);
+//        Map<String, Object> map = (Map<String, Object>) singletonObjects.get(beanFactory);
+//        map.keySet().forEach(System.out::println);
+        for (String beanName : beanFactory.getBeanDefinitionNames()) {
+            BeanDefinition beanDefinition = beanFactory.getBeanDefinition(beanName);
+            System.out.println(beanDefinition.getBeanClassName());
+        }
     }
 }
