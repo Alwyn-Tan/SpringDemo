@@ -13,18 +13,18 @@ public class LifeCycleBean {
     private static final Logger log = LoggerFactory.getLogger(LifeCycleBean.class);
 
     public LifeCycleBean() {
-        System.out.println("Constructing...");
+        log.debug("Constructing...");
     }
 
     @Autowired
     public void autowire(@Value("${JAVA_HOME}")String home){
-       System.out.println("Autowiring:"+ home);
+        log.debug("Autowiring:{}", home);
     }
 
     @PostConstruct
-    public void init(){System.out.println("Initializing...");}
+    public void init(){log.debug("Initializing...");}
 
     @PreDestroy
-    public void destroy(){System.out.println("Destroying");}
+    public void destroy(){log.debug("Destroying");}
 }
 
